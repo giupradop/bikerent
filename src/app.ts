@@ -63,15 +63,14 @@ returnBike(bike: Bike, user: User ){
     // VERIFICA SE NAO EXISTE
     if (B === undefined) throw new Error('Bike not found');
     // VERIFICA SE JA ESTA ALUGADA
-    if (B.isRented) throw new Error('Bike already rented');
-    // CRIAR ALUGUEL
-    let R = Rent.create(this.rents, U, B, new Date(), new Date());
-    // ADICIONAR ALUGUEL
-    this.rents.push(R);
+    if (!B.isRented) throw new Error('Bike not rented');
+    // ACHAR ALUGUEL
+    let R = this.rents.find(r => r.bike.name === bike.name);
+    // VERIFICA SE NAO EXISTE
+    if (R === undefined) throw new Error('Rent not found');
     // MUDAR STATUS DA BIKE
-    B.isRented = true;
-
-
+    B.isRented = false;
+    
 }
 
 
